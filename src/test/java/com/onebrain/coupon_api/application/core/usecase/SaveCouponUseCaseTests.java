@@ -2,6 +2,7 @@ package com.onebrain.coupon_api.application.core.usecase;
 import com.onebrain.coupon_api.application.core.domain.Coupon;
 import com.onebrain.coupon_api.application.core.domain.CouponStatus;
 import com.onebrain.coupon_api.application.core.exception.BusinessRuleException;
+    import com.onebrain.coupon_api.application.core.exception.DuplicateCouponCodeException;
 import com.onebrain.coupon_api.application.core.exception.InvalidCouponCodeException;
 import com.onebrain.coupon_api.application.port.out.SaveCoupontPort;
 import org.junit.jupiter.api.BeforeEach;
@@ -325,5 +326,31 @@ public class SaveCouponUseCaseTests {
         assertNotNull(result);
         assertFalse(result.isPublished());
         verify(saveCoupontPort, times(1)).saveCoupon(any(Coupon.class));
+    }
+
+    @Test
+    @DisplayName("Should throw DuplicateCouponCodeException when try to save a existing coupon")
+    void shouldThrowExceptionDuplicateCouponCodeException() {
+
+        Coupon coupon = new Coupon(
+                null,
+                "ABC123",
+                "teste",
+                BigDecimal.valueOf(5.0),
+                LocalDateTime.now().plusDays(5),
+                true,
+                false,
+                CouponStatus.ACTIVE
+        );
+
+        when(saveCoupontPort.saveCoupon(any(Coupon.class))).thenThrow(new DuplicateCouponCodeException("ABC123"));
+
+        DuplicateCouponCodeException exception = assertThrows(
+                DuplicateCouponCodeException.class,
+                () -> saveCouponUseCase.saveCoupon(coupon)
+        );
+        assertEquals("Coupon code already exists: ABC123", exception.getMessage());
+        verify(saveCoupontPort, times(1)).saveCoupon(any(Coupon.class));
+
     }
 }

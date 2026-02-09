@@ -2,7 +2,7 @@
 API REST para gerenciamento de cupons de desconto.
 ## Stack
 - Java 17
-- Spring Boot 3.2.2
+- Spring Boot 4.0.2
 - H2 Database (in-memory)
 - Maven
 - Docker

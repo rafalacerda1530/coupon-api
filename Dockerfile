@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 8080
 
 # Comando para executar a aplicação Spring Boot quando o contêiner for iniciado
-ENTRYPOINT ["java","-Dh2.webAllowOthers=true", "-jar", "target/coupon-api-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-Dh2.webAllowOthers=true", "-jar", "target/coupon-api-1.0.1.jar"]
