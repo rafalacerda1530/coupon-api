@@ -1,0 +1,18 @@
+﻿version: '3.8'
+services:
+  API:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: 'coupon-api:1.0'
+    container_name: 'coupon-api'
+    restart: 'always'
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      JAVA_TOOL_OPTIONS: "-Dh2.server.webAllowOthers=true"
+    volumes:
+      - h2-data:/app/data
+volumes:
+  h2-data:
