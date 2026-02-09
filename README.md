@@ -12,12 +12,12 @@ API REST para gerenciamento de cupons de desconto.
 - Docker (opcional)
 ## Como rodar
 ### Local
-\\\ash
+\\\Bash
 mvn clean install
 mvn spring-boot:run
 \\\
 ### Docker
-\\\ash
+\\\Bash
 docker-compose up --build
 \\\
 A aplicação sobe na porta **8080**.
